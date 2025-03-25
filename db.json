@@ -1,40 +1,64 @@
 {
   "EmpList": [
     {
-      "id": "41d1",
-      "name": "Nandani ",
-      "profileImage": "/Assets/person2.jpeg",
+      "id": "f55a",
+      "name": "bhanunnn",
+      "profileImage": "/Assets/person4.jpeg",
       "gender": "female",
       "departments": [
-        "sales"
+        "finance"
       ],
       "salary": "₹10,000",
-      "startDate": "17-09-2024",
-      "notes": "hhhh"
+      "startDate": "13-08-2023",
+      "notes": "bnm"
     },
     {
-      "id": "1dc6",
-      "name": "Mayank",
-      "profileImage": "/Assets/person3.jpeg",
+      "name": "goni new",
+      "profileImage": "/Assets/person4.jpeg",
       "gender": "male",
       "departments": [
         "HR"
       ],
       "salary": "₹10,000",
-      "startDate": "17-11-2024",
-      "notes": "sdfghjk"
+      "startDate": "17-08-2022",
+      "notes": "dfghjkl",
+      "id": "4674"
     },
     {
-      "id": "19a2",
-      "name": "Harsh",
+      "id": "4549",
+      "name": "ghjk",
       "profileImage": "/Assets/person3.jpeg",
       "gender": "male",
       "departments": [
         "sales"
       ],
-      "salary": "₹20,000",
-      "startDate": "14-10-2023",
-      "notes": "hhhh"
+      "salary": "₹10,000",
+      "startDate": "14-07-2022",
+      "notes": "fghbjnmk,l"
+    },
+    {
+      "id": "7542",
+      "name": "Manpreet",
+      "profileImage": "/Assets/person1.jpeg",
+      "gender": "male",
+      "departments": [
+        "HR"
+      ],
+      "salary": "₹10,000",
+      "startDate": "02-01-2021",
+      "notes": "sdfghjk"
+    },
+    {
+      "id": "004d",
+      "name": "Mayank",
+      "profileImage": "/Assets/person1.jpeg",
+      "gender": "male",
+      "departments": [
+        "HR"
+      ],
+      "salary": "₹10,000",
+      "startDate": "17-09-2024",
+      "notes": "okm"
     }
   ]
 }
