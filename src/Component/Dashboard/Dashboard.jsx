@@ -63,7 +63,7 @@ class Dashboard extends Component {
       }));
 
       this.setState({isModalOpen: false});
-      console.log(`Employee with ID ${employeeIdToDelete} deleted`);
+      
     } catch (error) {
       console.error('Failed to delete employee', error);
     }
@@ -161,9 +161,9 @@ class Dashboard extends Component {
                         </td>
                         <td className="p-3">{employee.gender}</td>
                         <td className="p-3">
-                          {employee.departments.map((dept, idx) => (
+                          {employee.departments.map((dept) => (
                             <span
-                              key={idx}
+                              key={dept}
                               className="inline-block bg-[#E9FEA5] text-black rounded-[13px] px-2.5 py-1 text-xs mr-1.5"
                             >
                               {dept}

@@ -36,9 +36,8 @@ class Registration extends Component {
   }
 
   componentDidMount() {
-    const { location } = this.props;
-    if (location.state && location.state.isEdit && location.state.employee) {
-      const { employee } = location.state;
+    const employee = this.props.location?.state?.employee;
+    if (this.props.location?.state?.isEdit && employee) {
       const [day, month, year] = employee.startDate.split('-');
       this.setState({
         id: employee.id,
@@ -55,7 +54,6 @@ class Registration extends Component {
       });
     }
   }
-
   handleSubmit = async (e) => {
     e.preventDefault();
     const { id, name, profileImage, gender, department, salary, day, month, year, notes, isEdit } = this.state;
@@ -166,7 +164,7 @@ class Registration extends Component {
                       { value: '/Assets/person4.jpeg', src: person4 },
                     ].map((img, index) => (
                       <label
-                        key={index}
+                        key={img.value}
                         className="flex items-center gap-2 cursor-pointer hover:bg-gray-100 p-2 rounded-lg transition-all duration-300"
                       >
                         <input
