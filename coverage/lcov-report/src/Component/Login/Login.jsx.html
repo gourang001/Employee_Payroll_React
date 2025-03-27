@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">41.66% </span>
+                <span class="strong">90.9% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/12</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>10/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">33.33% </span>
-                <span class="quiet">Functions</span>
+                <span class="quiet">Branches</span>
                 <span class='fraction'>1/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">41.66% </span>
+                <span class="strong">66.66% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>2/3</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">90.9% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/12</span>
+                <span class='fraction'>10/11</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -100,35 +100,39 @@
 <a name='L35'></a><a href='#L35'>35</a>
 <a name='L36'></a><a href='#L36'>36</a>
 <a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -141,32 +145,34 @@
 import { useNavigate } from "react-router-dom";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
+&nbsp;
 const clientId = "707297926482-0ml46hhmnkq9rt0h67enc1ucler9dddn.apps.googleusercontent.com";
 &nbsp;
 const Login = () =&gt; {
   const navigate = useNavigate();
 &nbsp;
-  const handleLoginSuccess = <span class="fstat-no" title="function not covered" >(c</span>redentialResponse) =&gt; {
-    const token = <span class="cstat-no" title="statement not covered" >credentialResponse.credential;</span>
-    const userData = <span class="cstat-no" title="statement not covered" >jwtDecode(token);</span>
-    const name = <span class="cstat-no" title="statement not covered" >userData.name || userData.given_name || "User";</span>
-  
-<span class="cstat-no" title="statement not covered" >    localStorage.setItem("userName", name);</span>
-<span class="cstat-no" title="statement not covered" >    console.log("Login Success:", userData);</span>
-  
-<span class="cstat-no" title="statement not covered" >    navigate("/dashboard");</span>
+  const handleLoginSuccess = (credentialResponse) =&gt; {
+    const token = credentialResponse.credential;
+    const userData = jwtDecode(token);
+    const name = userData.name || <span class="branch-1 cbranch-no" title="branch not covered" >userData.given_name </span>|| <span class="branch-2 cbranch-no" title="branch not covered" >"User";</span>
+&nbsp;
+    localStorage.setItem("userName", name);
+&nbsp;
+    navigate("/dashboard");
   };
 &nbsp;
   return (
     &lt;GoogleOAuthProvider clientId={clientId}&gt;
-      &lt;div className="flex flex-col min-h-screen"&gt;
-        &lt;div className="flex flex-col items-center justify-center flex-grow bg-gradient-to-r from-indigo-500 to-purple-600 text-white"&gt;
-          &lt;h2 className="text-2xl mb-6"&gt;SSO Login with Google&lt;/h2&gt;
-          &lt;div className="bg-white px-4 py-2 rounded"&gt;
-            &lt;GoogleLogin
-              onSuccess={handleLoginSuccess}
-              onError={<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; <span class="cstat-no" title="statement not covered" >err.message}</span>
-            /&gt;
+      &lt;div className="flex flex-col min-h-screen justify-center items-center bg-gradient-to-r from-purple-500 via-purple-600 to-purple-800"&gt;
+        &lt;div className="border rounded-[3px] h-[150px] w-[300px] bg-white !py-[10px] shadow-lg"&gt;
+          &lt;div className="flex flex-col items-center justify-center flex-grow text-black"&gt;
+            &lt;h2 className="text-2xl mb-6"&gt;Login to Employee Payroll&lt;/h2&gt;
+            &lt;div className="bg-white px-4 py-2 rounded"&gt;
+              &lt;GoogleLogin
+                onSuccess={handleLoginSuccess}
+                onError={<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; <span class="cstat-no" title="statement not covered" >err.message}</span>
+              /&gt;
+            &lt;/div&gt;
           &lt;/div&gt;
         &lt;/div&gt;
       &lt;/div&gt;
@@ -181,7 +187,7 @@ export default Login;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-03-25T19:28:05.437Z
+                at 2025-03-27T07:53:07.836Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
