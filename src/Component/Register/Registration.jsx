@@ -153,7 +153,7 @@ class Registration extends Component {
                 </div>
 
                 <div className="flex  gap-2 flex-col md:flex-row">
-                  <label className="min-w-[20%] flex justify-start  text-left md:text-right font-medium text-gray-700">
+                  <label htmlFor='Profile Image' className="min-w-[20%] flex justify-start  text-left md:text-right font-medium text-gray-700">
                     Profile Image
                   </label>
                   <div className="w-full md:w-2/3 flex flex-wrap justify-center md:justify-start gap-4">
@@ -210,7 +210,7 @@ class Registration extends Component {
                 </div>
 
                 <div className="flex gap-2 flex-col md:flex-row">
-                  <label className="flex justify-start min-w-[20%] text-left md:text-right font-medium text-gray-700">
+                  <label htmlFor='Profile Image' className="flex justify-start min-w-[20%] text-left md:text-right font-medium text-gray-700">
                     Department
                   </label>
                   <div className="w-[100%] flex gap-4 md:w-[75%] md:flex-row flex-wrap justify-center md:justify-start">
@@ -254,7 +254,7 @@ class Registration extends Component {
                 </div>
 
                 <div className="flex items-center gap-2 md:flex-row flex-col">
-                  <label className="min-w-[20%] font-medium text-gray-700">Start Date</label>
+                  <label htmlFor='Profile Image' className="min-w-[20%] font-medium text-gray-700">Start Date</label>
                   <div className="flex gap-4 md:w-2/3 w-full flex-col md:flex-row">
                     <select
                       id="day"

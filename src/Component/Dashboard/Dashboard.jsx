@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types'; // Added for props validation
 import Header from '../Header/Header';
-import { Search, Plus, Trash2, Pencil } from 'lucide-react'
+import { Search, Plus, Trash2, Pencil } from 'lucide-react';
 
 const withNavigate = (Component) => {
   return (props) => {
@@ -19,7 +20,7 @@ class Dashboard extends Component {
       loading: false,
       error: null,
       isModalOpen: false,
-      employeeIdToDelete: null
+      employeeIdToDelete: null,
     };
   }
 
@@ -53,17 +54,16 @@ class Dashboard extends Component {
     const { employeeIdToDelete } = this.state;
     try {
       const response = await fetch(`http://localhost:3001/EmpList/${employeeIdToDelete}`, {
-        method: 'DELETE'
+        method: 'DELETE',
       });
       if (!response.ok) {
         throw new Error('Failed to delete employee');
       }
-      this.setState(prevState => ({
-        employees: prevState.employees.filter(emp => emp.id !== employeeIdToDelete)
+      this.setState((prevState) => ({
+        employees: prevState.employees.filter((emp) => emp.id !== employeeIdToDelete),
+        isModalOpen: false,
+        employeeIdToDelete: null,
       }));
-
-      this.setState({isModalOpen: false});
-      
     } catch (error) {
       console.error('Failed to delete employee', error);
     }
@@ -77,11 +77,94 @@ class Dashboard extends Component {
     this.props.navigate('/registration');
   };
 
-  render() {
-    const { searchTerm, employees, loading, error } = this.state;
+  renderTableContent() {
+    const { loading, error, employees, searchTerm } = this.state;
     const filteredEmployees = employees.filter((employee) =>
       employee.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    if (loading) {
+      return (
+        <tr>
+          <td colSpan="6" className="p-3 text-center text-gray-500">
+            Loading employees...
+          </td>
+        </tr>
+      );
+    }
+    if (error) {
+      return (
+        <tr>
+          <td colSpan="6" className="p-3 text-center text-red-500">
+            Error: {error}
+          </td>
+        </tr>
+      );
+    }
+    if (filteredEmployees.length > 0) {
+      return filteredEmployees.map((employee, index) => (
+        <tr
+          key={employee.id}
+          className={index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}
+        >
+          <td className="p-3">
+            <div className="flex items-center gap-8">
+              <img
+                src={employee.profileImage}
+                alt={employee.name}
+                className="w-10 h-10 rounded-full object-cover mr-8"
+                onError={(e) => (e.target.src = 'https://via.placeholder.com/40')}
+              />
+              <div className="ml-3">{employee.name}</div>
+            </div>
+          </td>
+          <td className="p-3">{employee.gender}</td>
+          <td className="p-3">
+            {employee.departments.map((dept) => (
+              <span
+                key={dept}
+                className="inline-block bg-[#E9FEA5] text-black rounded-[13px] px-2.5 py-1 text-xs mr-1.5"
+              >
+                {dept}
+              </span>
+            ))}
+          </td>
+          <td className="p-3">{employee.salary}</td>
+          <td className="p-3">{employee.startDate}</td>
+          <td className="p-3">
+            <div className="flex gap-2.5">
+              <button
+                type="button"
+                className="text-[#9CA3AF] hover:text-[#7CB342] cursor-pointer"
+                onClick={() => this.handleEdit(employee)}
+                aria-label="Edit employee"
+              >
+                <Pencil />
+              </button>
+              <button
+                type="button"
+                className="text-[#9CA3AF] hover:text-red-600 cursor-pointer"
+                onClick={() => this.handleDelete(employee.id)}
+                aria-label="Delete employee"
+              >
+                <Trash2 />
+              </button>
+            </div>
+          </td>
+        </tr>
+      ));
+    }
+    return (
+      <tr>
+        <td colSpan="6" className="p-3 text-center text-gray-500">
+          No employees found
+        </td>
+      </tr>
+    );
+  }
+
+  render() {
+    const { isModalOpen } = this.state;
 
     return (
       <div className="min-h-screen bg-gray-50 font-sans">
@@ -96,7 +179,7 @@ class Dashboard extends Component {
                   type="text"
                   id="searchInput"
                   placeholder="Search by name..."
-                  value={searchTerm}
+                  value={this.state.searchTerm}
                   onChange={this.handleSearch}
                   className="p-2 border border-gray-300 rounded w-full md:w-[250px] text-sm focus:outline-none focus:border-[#82A70C] focus:ring-1 focus:ring-[#82A70C] pr-10"
                 />
@@ -127,92 +210,24 @@ class Dashboard extends Component {
                     <th className="p-3 text-left">ACTIONS</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {loading ? (
-                    <tr>
-                      <td colSpan="6" className="p-3 text-center text-gray-500">
-                        Loading employees...
-                      </td>
-                    </tr>
-                  ) : error ? (
-                    <tr>
-                      <td colSpan="6" className="p-3 text-center text-red-500">
-                        Error: {error}
-                      </td>
-                    </tr>
-                  ) : filteredEmployees.length > 0 ? (
-                    filteredEmployees.map((employee, index) => (
-                      <tr
-                        key={employee.id}
-                        className={index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}
-                      >
-                        <td className="p-3">
-                          <div className="flex items-center gap-8">
-                            <img
-                              src={employee.profileImage}
-                              alt={employee.name}
-                              className="w-10 h-10 rounded-full object-cover mr-8"
-                              onError={(e) => (e.target.src = 'https://via.placeholder.com/40')}
-                            />
-                            <div className='ml-3'>
-                            {employee.name}
-                            </div>
-                          </div>
-                        </td>
-                        <td className="p-3">{employee.gender}</td>
-                        <td className="p-3">
-                          {employee.departments.map((dept) => (
-                            <span
-                              key={dept}
-                              className="inline-block bg-[#E9FEA5] text-black rounded-[13px] px-2.5 py-1 text-xs mr-1.5"
-                            >
-                              {dept}
-                            </span>
-                          ))}
-                        </td>
-                        <td className="p-3">{employee.salary}</td>
-                        <td className="p-3">{employee.startDate}</td>
-                        <td className="p-3">
-                          <div className="flex gap-2.5">
-                            <span
-                              className="text-[#9CA3AF] hover:text-[#7CB342] cursor-pointer"
-                              onClick={() => this.handleEdit(employee)}
-                              aria-label="Edit employee"
-                            >
-                              <Pencil />
-                            </span>
-                            <span
-                              className="text-[#9CA3AF] hover:text-red-600 cursor-pointer"
-                              onClick={() => this.handleDelete(employee.id)}                         
-                              aria-label="Delete employee"
-                              >
-                              <Trash2 aria-label={"Delete"} />
-                            </span>
-                          </div>
-                        </td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan="6" className="p-3 text-center text-gray-500">
-                        No employees found
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
+                <tbody>{this.renderTableContent()}</tbody>
               </table>
             </div>
           </div>
         </div>
 
-        {this.state.isModalOpen && (
+        {isModalOpen && (
           <>
             <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50"></div>
-            <div className="fixed p-8 top-1/2 left-1/2 rounded-md transform -translate-x-1/2 -translate-y-1/2 bg-white z-50 ">
-              <h2 className="text-xl font-bold text-[#42515F]">Are you sure you want to delete the employee?</h2>
+            <div className="fixed p-8 top-1/2 left-1/2 rounded-md transform -translate-x-1/2 -translate-y-1/2 bg-white z-50">
+              <h2 className="text-xl font-bold text-[#42515F]">
+                Are you sure you want to delete the employee?
+              </h2>
               <div className="flex justify-end gap-4 mt-4">
                 <button
-                  onClick={() => this.setState({ isModalOpen: false, employeeIdToDelete: null })}
+                  onClick={() =>
+                    this.setState({ isModalOpen: false, employeeIdToDelete: null })
+                  }
                   className="py-2 px-4 border border-[#969696] rounded cursor-pointer bg-[#82A70C] hover:bg-[#707070] text-white hover:text-white"
                 >
                   Cancel
@@ -231,5 +246,10 @@ class Dashboard extends Component {
     );
   }
 }
+
+// Add props validation for navigate
+Dashboard.propTypes = {
+  navigate: PropTypes.func.isRequired,
+};
 
 export default withNavigate(Dashboard);
