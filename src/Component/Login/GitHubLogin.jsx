@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaGithub } from 'react-icons/fa';
 
-const GitHubLogin = ({ onSuccess, onError }) => {
+const GitHubLogin = () => {
   const githubClientId = "Ov23lidWLxrz4PKKh3nU"; 
   const redirectUri = "http://localhost:5173/callback";
   
